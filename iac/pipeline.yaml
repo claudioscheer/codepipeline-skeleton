@@ -1,25 +1,75 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: Skeleton for CodePipeline CI/CD pipeline
 
-# Parameters:
-  # GitHubOAuthToken:
-  #   Type: String
-  #   NoEcho: true
-  #   MinLength: 40
-  #   MaxLength: 40
-  #   AllowedPattern: "[a-z0-9]*"
+Parameters:
+  GitHubSourceConnection:
+    Type: String
 
-  # GitHubOwner:
-  #   Type: String
-  #   Default: claudioscheer
-  #   AllowedPattern: "[A-Za-z0-9-]+"
+  GitHubBranch:
+    Type: String
+    Default: master
 
-  # GitHubRepo:
-  #   Type: String
-  #   Default: codepipeline-skeleton
-  #   AllowedPattern: "[A-Za-z0-9-]+"
+  GitHubOwner:
+    Type: String
+    Default: claudioscheer-isg
 
-  # GitHubBranch:
-  #   Type: String
-  #   Default: master
-  #   AllowedPattern: "[A-Za-z0-9-]+"
+  GitHubRepo:
+    Type: String
+    Default: codepipeline-skeleton
+
+Resources:
+  CodePipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      ArtifactStore:
+        Type: S3
+        Location:
+          Fn::ImportValue: codepipeline-skeleton-bootstrap-S3DeployBucketName
+      RestartExecutionOnUpdate: true
+      RoleArn: !GetAtt CodePipelineRole.Arn
+      Stages:
+        - Name: Source
+          Actions:
+          - Name: Checkout
+            ActionTypeId:
+              Category: Source
+              Owner: AWS
+              Version: 1
+              Provider: CodeStarSourceConnection
+            Configuration:
+              ConnectionArn: !Ref GitHubSourceConnection
+              BranchName: !Ref GitHubBranch
+              FullRepositoryId: !Sub ${GitHubOwner}/${GitHubRepo} 
+              OutputArtifactFormat: CODE_ZIP
+            OutputArtifacts:
+              - Name: SourceCode
+      # - Name: Deploy
+      #   Actions:
+      #   - Name: CloudFormationDeploy
+      #     ActionTypeId:
+      #       Category: Deploy
+      #       Owner: AWS
+      #       Provider: CloudFormation
+      #       Version: '1'
+      #     InputArtifacts:
+      #       - Name: SourceCode
+      #     Configuration:
+      #       ActionMode: CREATE_UPDATE
+      #       Capabilities: CAPABILITY_IAM
+      #       RoleArn: !GetAtt CloudformationRole.Arn
+      #       StackName: !Ref ApplicationStackName
+      #       TemplatePath: !Sub "SourceCode::application.yaml"
+      #     RunOrder: 1
+
+  CodePipelineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          Effect: Allow
+          Principal:
+            Service: codepipeline.amazonaws.com
+          Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess

@@ -7,9 +7,13 @@ Resources:
     Properties:
       BucketName: codepipeline-skeleton-47tjp
       AccessControl: Private
+      VersioningConfiguration:
+        Status: Enabled
     DeletionPolicy: Retain
 
 Outputs:
   S3DeployBucketName:
     Value: !Ref S3DeployBucket
     Description: Deployment S3 bucket name
+    Export:
+      Name: !Sub "${AWS::StackName}-S3DeployBucketName"
