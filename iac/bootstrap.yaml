@@ -1,0 +1,15 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Deploy bootstrap resources
+
+Resources:
+  S3DeployBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: codepipeline-skeleton-47tjp
+      AccessControl: Private
+    DeletionPolicy: Retain
+
+Outputs:
+  S3DeployBucketName:
+    Value: !Ref S3DeployBucket
+    Description: Deployment S3 bucket name
