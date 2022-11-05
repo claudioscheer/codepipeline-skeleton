@@ -11,6 +11,13 @@ Resources:
         Status: Enabled
     DeletionPolicy: Retain
 
+  S3DeployBucketSSM:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: S3DeployBucket
+      Type: String
+      Value: !Ref S3DeployBucket
+
 Outputs:
   S3DeployBucketName:
     Value: !Ref S3DeployBucket
