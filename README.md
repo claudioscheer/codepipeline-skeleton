@@ -3,6 +3,9 @@
 - [https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html](https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html)
 - [https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials.html](https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials.html)
 - [https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html](https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html)
+- [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_CodePipeline.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_CodePipeline.html)
+- [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_CodeBuild.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_CodeBuild.html)
+
 
 
 # Useful examples

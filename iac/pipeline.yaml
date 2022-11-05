@@ -68,6 +68,7 @@ Resources:
       Name: !Sub ${GitHubRepo}-build
       Source:
         Type: CODEPIPELINE
+        BuildSpec: buildspec.yaml
       Artifacts:
         Type: CODEPIPELINE
       ServiceRole: !GetAtt CodeBuildServiceRole.Arn
