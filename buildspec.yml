@@ -1,0 +1,21 @@
+version: 0.2
+
+env:
+  variables:
+    test: "test"
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+
+    commands:
+      - echo "install phase"
+
+  pre_build:
+    commands:
+      - echo "pre_build phase"
+
+  build:
+    commands:
+      - echo "build phase"
