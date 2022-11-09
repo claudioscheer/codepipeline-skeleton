@@ -19,4 +19,3 @@ phases:
   build:
     commands:
       - echo "build phase"
-      - echo "build phase test"
